@@ -27,7 +27,7 @@ void isdivisable(int arr[], int n)
 
 int main()
 {
-    int arr[] = {1, 1, 1, 2, 1};
+    int arr[] = {1};
     isdivisable(arr, sizeof(arr) / sizeof(arr[0]));
     return 0;
 }
