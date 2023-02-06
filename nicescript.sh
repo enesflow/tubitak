@@ -1,3 +1,4 @@
+#!/bin/sh
 cd /home/ecr/Desktop/tubitak
 echo $(pwd)
 ./remove.sh
