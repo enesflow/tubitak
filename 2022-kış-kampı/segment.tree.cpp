@@ -19,30 +19,32 @@ void build(int node, int start, int end, int arr[])
     }
 }
 
-// update
-void update(int node, int start, int end, int value, int isReset)
+// update a single leaf node and propagate the changes up
+void update(int idx, int start, int end, int val, int type)
 {
-    if (node == start && start == end)
+    if (start == end)
     {
-        if (isReset)
-        {
-            tree[node] = 0;
-        }
+        // Leaf node
+        if (type == 0)
+            tree[idx] += val;
         else
-        {
-            tree[node] += value;
-        }
+            tree[idx] = 0;
     }
     else
     {
-        if (node < start || end < node)
-            return;
         int mid = (start + end) / 2;
-        if (node <= mid)
-            update(2 * node, start, mid, value, isReset);
+        if (start <= idx && idx <= mid)
+        {
+            // If idx is in the left child, recurse on the left child
+            update(2 * idx, start, mid, val, type);
+        }
         else
-            update(2 * node + 1, mid + 1, end, value, isReset);
-        tree[node] = tree[2 * node] + tree[2 * node + 1];
+        {
+            // if idx is in the right child, recurse on the right child
+            update(2 * idx + 1, mid + 1, end, val, type);
+        }
+        // Internal node will have the sum of both of its children
+        tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
     }
 }
 
@@ -58,10 +60,32 @@ int query(int l, int r, int start, int end, int node)
     int p2 = query(l, r, mid + 1, end, 2 * node + 1);
     return (p1 + p2);
 }
+
+void print()
+{
+    // print the tree nicely
+    int level = 1;
+    int count = 0;
+    cout << "printing : " << 1 << 2 * n - 1 << endl;
+    for (int i = 1; i <= 2 * n - 1; i++)
+    {
+        cout << tree[i] << " ";
+        count++;
+        if (count == level)
+        {
+            cout << endl;
+            level *= 2;
+            count = 0;
+        }
+    }
+
+    cout << endl;
+}
+
 void solve()
 {
     memset(tree, 0, sizeof(tree));
-    int n, k;
+    int k;
     cin >> n >> k;
 
     int arr[n];
@@ -74,18 +98,20 @@ void solve()
 
     for (int i = 0; i < k; i++)
     {
+        print();
         cout << "i: " << i << endl;
         cin >> a;
         if (a == 1)
         {
-            cin >> b;
-            cout << "->>" << query(b, b, 0, n - 1, 1) << endl;
-            update(1, 0, n - 1, 0, 1);
+            cin >> b; // index of the element in the array
+            // update the element at index b to 0
+            update(b, 0, n - 1, 0, 1);
         }
         else if (a == 2)
         {
             cin >> b >> c;
-            update(1, 0, n - 1, c, 0);
+            // update the element at index b to c
+            update(b, 0, n - 1, c, 0);
         }
         else
         {
@@ -93,6 +119,7 @@ void solve()
             cout << "->>" << query(b, c, 0, n - 1, 1) << endl;
         }
     }
+    print();
 }
 
 int main()

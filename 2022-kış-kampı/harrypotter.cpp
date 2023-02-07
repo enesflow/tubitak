@@ -1,4 +1,7 @@
 /*
+
+بِسْــــــــــــــــــــــمِ اﷲِارَّحْمَنِ ارَّحِيم
+
 İSTİKLÂL MARŞI
 -Kahraman Ordumuza
 Korkma, sönmez bu şafaklarda yüzen al sancak;

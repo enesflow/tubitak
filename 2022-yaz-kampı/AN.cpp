@@ -43,9 +43,12 @@ int ans = 0;
 #define int long long
 
 // fastpow
+
+// example:
+// 2^10 = 2^2 * 2^8
+
 int fastpow(int a, int b)
 {
-
     int res = 1;
     while (b > 0)
     {
