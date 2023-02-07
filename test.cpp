@@ -8,9 +8,7 @@ using namespace std;
 int main()
 {
 
-    // fastio
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout << (int)("00000000000000000000000000001000".to_ulong());
+    cout << "Hello World" << endl;
+
     return 0;
 }
